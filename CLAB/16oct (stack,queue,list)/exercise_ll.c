@@ -1,4 +1,7 @@
 #include "common.h"
+#define N 100
+#define WRT_X 0
+#define WRT_Y 1
 typedef struct _node {
       int x;
       int y;
@@ -8,7 +11,7 @@ typedef struct _node {
 
 typedef node *list;
 
-list genRandlist(int n){
+list genRandList(int n){
     node *n1,*n2;
     list L;
     //dummy node//
@@ -30,7 +33,7 @@ list genRandlist(int n){
     return L;
 }
 
-void print_ll(list L, int flag ){
+void printList(list L, int flag ){
     node *nptr;
     nptr = L;
     if(flag == 0){
@@ -38,48 +41,89 @@ void print_ll(list L, int flag ){
             printf("%d ",nptr->x);
             nptr = nptr->nextx;
         }
+        putchar('\n');
     }
     else{
         while(nptr){
             printf("%d ",nptr->y);
             nptr = nptr->nexty;
         }
+        putchar('\n');
     }
     return;
 }
 
-void bubbleSortX ( list L ){
+void bubbleSortX(list L){
     int flag = 0;
-    int i;int length;
-    node *n1,*n2,*n3,*n4,*temp;
-    n1 = L;
-    while(n1->nextx){
-        length++;
+    int i,j;int length;
+    node *prev,*curr,*next;
+    curr = L->nextx;prev = L;next = curr->nextx;
+    while(curr){
+        length++;curr = curr->nextx;
     }
-    n1 = NULL;
-    n2 = L;n3 = n2->nextx;
-    n4 = n3->nextx;
+    curr = L->nextx;
     for(i=0;i<length-1;i++){
-        while(n3){
-            if(n2->x > n3->x){
-                n1->nextx = n3;
-                n3->nextx = n2;
-                n2->nextx = n4;
-            }
-            n2 = n2->nextx;n3 = n3->nextx;n4 = n4->nextx; 
+        if(flag == length) break;
+        prev = L;curr = prev->nextx;next = curr->nextx;
+        while(next){
+            if(curr->x > next->x){       
+                curr->nextx = next->nextx;
+                next->nextx = curr;
+                prev->nextx = next;
+                prev = next;next = curr->nextx;flag=0;
+                }
+            else{
+                prev = curr;
+                curr = next;
+                next = curr->nextx;
+                flag++;
+            }    
+            } 
         }
+}
+
+void bubbleSortY(list L){
+    int flag = 0;
+    int i,j;int length;
+    node *prev,*curr,*next;
+    curr = L->nexty;prev = L;next = curr->nexty;
+    while(curr){
+        length++;curr = curr->nexty;
     }
-
-
+    curr = L->nexty;
+    for(i=0;i<length-1;i++){
+        if(flag == length) break;
+        prev = L;curr = prev->nexty;next = curr->nexty;
+        while(next){
+            if(curr->y > next->y){       
+                curr->nexty = next->nexty;
+                next->nexty = curr;
+                prev->nexty = next;
+                prev = next;next = curr->nexty;flag=0;
+                }
+            else{
+                prev = curr;
+                curr = next;
+                next = curr->nexty;
+                flag++;
+            }    
+            } 
+        }
 }
 
 
-int main(){
-    list l;
-    l = genRandlist(10);
 
 
+int main ()
+   {
+      list L;
 
-
-    return 0;
-}
+      L = genRandList(N);
+      printf("\nInitial list with respect to x pointers:\n"); printList(L,WRT_X);
+      printf("\nInitial list with respect to y pointers:\n"); printList(L,WRT_Y);
+      bubbleSortX(L);
+      bubbleSortY(L);
+      printf("\nFinal list with respect to x pointers:\n"); printList(L,WRT_X);
+      printf("\nFinal list with respect to y pointers:\n"); printList(L,WRT_Y);
+      exit(0);
+   }
