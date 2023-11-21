@@ -55,7 +55,7 @@ void printList(list L, int flag ){
 
 void bubbleSortX(list L){
     int flag = 0;
-    int i,j;int length;
+    int i,j;int length = 0;
     node *prev,*curr,*next;
     curr = L->nextx;prev = L;next = curr->nextx;
     while(curr){
@@ -63,28 +63,29 @@ void bubbleSortX(list L){
     }
     curr = L->nextx;
     for(i=0;i<length-1;i++){
-        if(flag == length) break;
-        prev = L;curr = prev->nextx;next = curr->nextx;
-        while(next){
+        //if(flag == length) break;
+        j=0;prev = L;curr = prev->nextx;next = curr->nextx;
+        while(j<length-i-1){
             if(curr->x > next->x){       
                 curr->nextx = next->nextx;
                 next->nextx = curr;
                 prev->nextx = next;
-                prev = next;next = curr->nextx;flag=0;
+                prev = next;next = curr->nextx;//flag=0;
                 }
             else{
                 prev = curr;
                 curr = next;
                 next = curr->nextx;
-                flag++;
-            }    
+                //flag++;
+            }
+            j++;    
             } 
         }
 }
 
 void bubbleSortY(list L){
     int flag = 0;
-    int i,j;int length;
+    int i,j;int length = 0;
     node *prev,*curr,*next;
     curr = L->nexty;prev = L;next = curr->nexty;
     while(curr){
@@ -92,21 +93,21 @@ void bubbleSortY(list L){
     }
     curr = L->nexty;
     for(i=0;i<length-1;i++){
-        if(flag == length) break;
-        prev = L;curr = prev->nexty;next = curr->nexty;
-        while(next){
+        j=0;prev = L;curr = prev->nexty;next = curr->nexty;
+        while(j<length-i-1){
             if(curr->y > next->y){       
                 curr->nexty = next->nexty;
                 next->nexty = curr;
                 prev->nexty = next;
-                prev = next;next = curr->nexty;flag=0;
+                prev = next;next = curr->nexty;//flag=0;
                 }
             else{
                 prev = curr;
                 curr = next;
                 next = curr->nexty;
-                flag++;
-            }    
+                //flag++;
+            }
+            j++;    
             } 
         }
 }
