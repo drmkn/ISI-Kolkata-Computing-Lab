@@ -65,7 +65,7 @@ void span_creator(TREE *T, int root){
 }
 
 
-int main(){
+int main(int ac, char **av){
     int n,c;scanf("%d",&n);TREE *T;int flag_root = 0;
     T = init(T,n+1);BSTNODE *node;
     for(int i = 0;i<n;i++){
@@ -80,13 +80,23 @@ int main(){
                 scanf("%d",&node->left);scanf("%d",&node->right);
             }   
         }
-    span_creator(T,T->root);putchar('\n');
-    for(int i = 0;i<n;i++){
-        node = T->nodelist+i;
-        printf("%d %d %d %d\n",node->span[0],node->span[1],node->left,node->right);
+    span_creator(T,T->root);putchar('\n');    
+    if(*av[1] == 'a'){    
+        for(int i = 0;i<n;i++){
+            node = T->nodelist+i;
+            printf("%d %d %d %d\n",node->span[0],node->span[1],node->left,node->right);
+        }
+        return 0;
+    }
+    else if(*av[2] == 'b'){
+        int max_edge_index;int p,q;
+        for(int i = 0;i<n-1;i++){
+            node = T->nodelist+i;
+            if(i<2){//root edges
+                
+            }
+        }
     }
 
-
-
-    return 0;
+    
 }
