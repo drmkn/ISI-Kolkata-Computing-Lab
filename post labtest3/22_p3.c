@@ -119,11 +119,11 @@ int dfs_search_word_count(int index){
     //if(sum == 0) return trie[index][27];
 
     for(int j = 0;j<27;j++){
-        if(trie[index][j] != 0){
+        if(trie[index][j] != 0 && j<26){
             count += dfs_search_word_count(trie[index][j]);
         }
-        if(trie[index][27] != 0){
-            count += trie[index][27];
+        else if(trie[index][j] != 0 && j==26){
+            count += trie[index][j];
         }
     }
     return count;
@@ -141,19 +141,23 @@ int main(int ac, char **av){
         w = insert_string(Buffer);
     }
     for(int j = 0;j<n;j++){
-        fscanf(prefixes,"%s",Buffer);int i = 0;
-        printf("%s",Buffer);char c = Buffer[i];int index = 0;
+        fscanf(prefixes,"%s",Buffer);
+        int i = 0;int flag = 0;
+        printf("%s",Buffer);
+        char c = Buffer[i];int index = 0;
         while(c != '\0'){
             if(trie[index][c-'a'] != 0){
                 index = trie[index][c-'a'];
             }
-            c = Buffer[++i];
+            else{printf(" %d\n",0);flag++;break;}
+            i++;
+            c = Buffer[i];
         }
         
-        printf(" %d\n",dfs_search_word_count(index));
+       if(flag == 0) printf(" %d\n",dfs_search_word_count(index));
+        
     }
-
-
+    //for(int i = 0;i<27;i++) printf("%d ",trie[184][i]);
 
 
     return 0;
