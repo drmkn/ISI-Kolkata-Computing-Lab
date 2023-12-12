@@ -182,15 +182,22 @@ int main(int ac, char *av[])
             }
         }
     }
-    HEAP *H;initHeap(H,sizeof(int),compare_int);
-    int min;
-    for(int i = 0;i<n;i++){
-        for(int j = 0;j<k;j++){
-            insert(H,L[j]->head->d);
+    HEAP H;initHeap(&H,sizeof(int),compare_int);
+    int min,i,j;NODE** nptrs = Malloc(k,NODE*);
+    for(i = 0;i<k;i++){nptrs[i] = L[i]->head;insert(&H,&nptrs[i]->d);}
+    while(H.num_used != 0){
+        deleteMin(&H,&min);printf("%d ",min);
+        for(j = 0;j<k;j++){
+            if(NULL != nptrs[j] && min == nptrs[j]->d){
+                nptrs[j] = nptrs[j]->next;break;
+            }
+            else continue;
         }
-        
-
+        if(NULL == nptrs[j]) continue;
+        else insert(&H,&nptrs[j]->d); 
     }
+    free(L);
+    
 
     return 0;
 }
